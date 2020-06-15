@@ -1,8 +1,0 @@
-0001-Restore-gzflags-symbol-for-ABI-compatibility.patch
-cflags-for-minizip
-use-dso
-use-dso-really
-CVE-2016-9840
-CVE-2016-9841
-CVE-2016-9842
-CVE-2016-9843
