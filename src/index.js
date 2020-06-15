@@ -12,7 +12,7 @@ var port = 3000;
 app.use(express.json())
 
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true })
   .then(() => {
     console.log("Database is connected");
   })

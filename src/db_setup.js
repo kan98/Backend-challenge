@@ -1,4 +1,3 @@
 module.exports = {
-    myurl: 'mongodb://mongo:27017/UserSchema',
-    secret: 'secret'
- }
+    myurl: 'mongodb+srv://admin:HVgUGj$j7@d6%23Vi@backendchallenge-u4zfc.mongodb.net/ApplicationDb?retryWrites=true&w=majority',
+}
