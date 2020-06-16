@@ -18,7 +18,7 @@ const UserSchema = mongoose.Schema({
     type:String,
     require:false
   },
-  purchases: [Purchases],
+  purchases: [Purchases]
 });
 
 module.exports = Users = mongoose.model('UserSchema',UserSchema);
