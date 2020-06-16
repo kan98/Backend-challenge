@@ -3,6 +3,7 @@ var express = require("express");
 var authentication = require('./models/authentication');
 var user_management = require('./models/user_management');
 var products = require('./models/products');
+var order_management = require('./models/order_management');
 
 var port = 3000;
 var app = express();
@@ -86,6 +87,60 @@ module.exports = [
           res.status(400).send("Adding product failed: Please try again.");
       }
     }),
+
+    app.put("/create-order", async (req, res) => {
+      var login = await authentication.login(req);
+      if (login === -1) {
+        res.status(400).send("Authentication failed: Please check your request body.");
+      } else if (login) {
+        var order = await order_management.create_order(req);
+        if (order === -1) {
+          res.status(400).send("Creating order failed: Please check your request body.");
+        } else if (order) {
+          res.status(200).send("Order is created!");
+        } else {
+            res.status(400).send("Creating order failed: Please try again.");
+        }
+      } else {
+        res.status(400).send("Authentication failed: Wrong email and password combination.");
+      }
+    }),
+
+  app.delete("/delete-order", async (req, res) => {
+    var login = await authentication.login(req);
+    if (login === -1) {
+      res.status(400).send("Authentication failed: Please check your request body.");
+    } else if (login) {
+      var order = await order_management.delete_order(req);
+      if (order === -1) {
+        res.status(400).send("Deleting order failed: Please check your request body.");
+      } else if (order) {
+        res.status(200).send("Order is deleted!");
+      } else {
+          res.status(400).send("Deleting order failed: Purchase ID not found.");
+      }
+    } else {
+      res.status(400).send("Authentication failed: Wrong email and password combination.");
+    }
+  }),
+
+  app.post("/get-order", async (req, res) => {
+    var login = await authentication.login(req);
+    if (login === -1) {
+      res.status(400).send("Authentication failed: Please check your request body.");
+    } else if (login) {
+      var order = await order_management.get_order(req);
+      if (order === -1) {
+        res.status(400).send("Get order failed: Please check your request body.");
+      } else if (order) {
+        res.status(200).send(JSON.stringify(order));
+      } else {
+          res.status(400).send("Get order failed: Purchase ID not found.");
+      }
+    } else {
+      res.status(400).send("Authentication failed: Wrong email and password combination.");
+    }
+  }),
 ];
 
 app.listen(port,()=>{
