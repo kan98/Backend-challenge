@@ -74,7 +74,18 @@ module.exports = [
       } else {
         res.status(400).send("No product found by ID.");
       }
-    })
+    }),
+
+    app.put("/add-product", async (req, res) => {
+      var product = await products.add_product(req);
+      if (product === -1) {
+        res.status(400).send("Adding product failed: Please check your request body.");
+      } else if (product) {
+        res.status(200).send("Product is added to the system!");
+      } else {
+          res.status(400).send("Adding product failed: Please try again.");
+      }
+    }),
 ];
 
 app.listen(port,()=>{
