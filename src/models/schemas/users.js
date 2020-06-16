@@ -17,8 +17,7 @@ const UserSchema = mongoose.Schema({
   member_type:{
     type:String,
     require:false
-  },
-  purchases: [Purchases]
+  }
 });
 
 module.exports = Users = mongoose.model('UserSchema',UserSchema);
